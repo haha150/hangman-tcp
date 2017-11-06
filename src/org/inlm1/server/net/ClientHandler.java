@@ -4,14 +4,9 @@ import org.inlm1.common.Message;
 import org.inlm1.common.MessageType;
 import org.inlm1.server.model.Game;
 
-import javax.naming.directory.InvalidAttributesException;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ClientHandler extends Thread {
 
@@ -46,26 +41,10 @@ public class ClientHandler extends Thread {
                 Message m = (Message) sin.readObject();
                 switch (m.getMessageType()) {
                     case START_GAME:
-                        game = new Game(server.getRandomWord());
-                        sendMessage(MessageType.NONE, game.toString()+ ", Score: " + score);
+                        handleStartGame();
                         break;
                     case GUESS:
-                        if(game.isGuessValid(m.getMessage())) {
-                            game.guess(m.getMessage());
-                            if(game.hasWon()) {
-                                score++;
-                                sendMessage(MessageType.GAME_OVER, game.toString()+ ", Score: " + score);
-                                game = null;
-                            } else if (game.getTries() == 0) {
-                                score--;
-                                sendMessage(MessageType.GAME_OVER, game.toString()+ ", Score: " + score);
-                                game = null;
-                            } else {
-                                sendMessage(MessageType.NONE, game.toString()+ ", Score: " + score);
-                            }
-                        } else {
-                            sendMessage(MessageType.NONE, "Invalid guess, try again, guess one letter or the entire word");
-                        }
+                        handleGuess(m);
                         break;
                     case DISCONNECT:
                         running = false;
@@ -94,6 +73,30 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    private void handleGuess(Message m) {
+        if(game.isGuessValid(m.getMessage())) {
+            game.guess(m.getMessage().toLowerCase());
+            if(game.hasWon()) {
+                score++;
+                sendMessage(MessageType.GAME_OVER, game.toString()+ ", Score: " + score);
+                game = null;
+            } else if (game.getTries() == 0) {
+                score--;
+                sendMessage(MessageType.GAME_OVER, game.toString()+ ", Score: " + score);
+                game = null;
+            } else {
+                sendMessage(MessageType.NONE, game.toString()+ ", Score: " + score);
+            }
+        } else {
+            sendMessage(MessageType.NONE, "Invalid guess, try again, guess one letter or the entire word");
+        }
+    }
+
+    private void handleStartGame() {
+        game = new Game(server.getRandomWord());
+        sendMessage(MessageType.NONE, game.toString()+ ", Score: " + score);
     }
 
     private void cleanUp() throws IOException {

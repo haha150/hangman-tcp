@@ -8,7 +8,7 @@ public class FileHandler {
 
     private static FileHandler instance;
     private List<String> words;
-    private static final String FILE = "src/org/inlm1/server/controller/words2.txt";
+    private static final String FILE = "src/org/inlm1/server/controller/words.txt";
 
     private FileHandler(){
         words = new ArrayList<>();

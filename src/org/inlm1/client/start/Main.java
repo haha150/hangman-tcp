@@ -19,7 +19,7 @@ public class Main extends Application {
         Controller controller = new Controller(view);
         view.addEventHandlers(controller);
         
-        primaryStage.setTitle("Chat");
+        primaryStage.setTitle("Hangman");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.show();

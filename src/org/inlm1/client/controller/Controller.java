@@ -91,11 +91,6 @@ public class Controller {
         });
     }
 
-    public void failedToConnect() {
-        disconnect();
-        Platform.runLater(() -> showAlert("Disconnected"));
-    }
-
     public void showAlert(String message) {
         alert.setHeaderText("");
         alert.setTitle("Alert!");
@@ -151,13 +146,13 @@ public class Controller {
 
         @Override
         public void handleMessage(String message) {
-            Platform.runLater(() -> view.getTextArea().appendText(message + "\n"));
+            appendText(message);
         }
 
         @Override
         public void handleGameOver() {
+            appendText("Game over, start a new game to play again.");
             isGameOngoing = false;
-            Platform.runLater(() -> view.getTextArea().appendText("Game over, start a new game to play again." + "\n"));
         }
     }
 

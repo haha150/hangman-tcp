@@ -1,7 +1,5 @@
 package org.inlm1.server.model;
 
-import java.util.Arrays;
-
 public class Game {
 
     private String word;
