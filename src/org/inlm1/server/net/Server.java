@@ -1,13 +1,10 @@
 package org.inlm1.server.net;
 
 import org.inlm1.server.controller.Controller;
-import org.inlm1.server.controller.FileHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Server {
 
