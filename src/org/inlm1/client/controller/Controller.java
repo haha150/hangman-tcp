@@ -30,6 +30,10 @@ public class Controller {
         }
     }
 
+    public synchronized void appendNewConnection(String text) {
+        Platform.runLater(() -> view.getTextArea().appendText(text + "\n"));
+    }
+
     public void connect(String ip, int port, OutputHandler outputHandler) {
         view.getTextArea().clear();
         CompletableFuture.runAsync(() -> {
@@ -47,7 +51,7 @@ public class Controller {
                     System.out.println("Cleanup failed.");
                 }
             }
-        }).thenRun(() -> outputHandler.handleMessage("Connected to " + ip + ":" + port));
+        }).thenRun(() -> outputHandler.handleNewConnection("Connected to " + ip + ":" + port));
     }
 
     public void disconnect() {
@@ -143,6 +147,11 @@ public class Controller {
     }
 
     private class ViewOutput implements OutputHandler {
+
+        @Override
+        public void handleNewConnection(String message) {
+            appendNewConnection(message);
+        }
 
         @Override
         public void handleMessage(String message) {
