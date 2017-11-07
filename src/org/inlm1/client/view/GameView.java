@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.inlm1.client.controller.Controller;
 
-public class ChatView extends BorderPane {
+public class GameView extends BorderPane {
     private final Stage primaryStage;
     private static TextArea textArea;
     private TextField textField;
@@ -21,7 +21,7 @@ public class ChatView extends BorderPane {
     private MenuItem disconnect;
     private MenuItem newGame;
 
-    public ChatView(Stage primaryStage) {
+    public GameView(Stage primaryStage) {
         this.primaryStage = primaryStage;
         initView();
     }

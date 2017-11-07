@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.inlm1.client.controller.Controller;
-import org.inlm1.client.view.ChatView;
+import org.inlm1.client.view.GameView;
 
 public class Main extends Application {
 
@@ -14,7 +14,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        ChatView view = new ChatView(primaryStage);
+        GameView view = new GameView(primaryStage);
         Scene scene = new Scene(view, 400, 400);
         Controller controller = new Controller(view);
         view.addEventHandlers(controller);

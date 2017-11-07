@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.inlm1.client.net.Client;
 import org.inlm1.client.net.OutputHandler;
-import org.inlm1.client.view.ChatView;
+import org.inlm1.client.view.GameView;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -17,10 +17,10 @@ public class Controller {
     private Client client;
     private boolean connected = false;
     private boolean isGameOngoing = false;
-    private static ChatView view;
+    private static GameView view;
     private final Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    public Controller(ChatView view) {
+    public Controller(GameView view) {
         this.view = view;
     }
 
